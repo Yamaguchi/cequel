@@ -67,7 +67,9 @@ module Cequel
 
       def delegate(*args, &block)
         return super if args.one?
-        Module.instance_method(:delegate).bind(self).call(*args, &block)
+        name = args.first
+        opt = args.second
+        Module.instance_method(:delegate).bind(self).call(name, to: opt[:to], &block)
       end
     end
   end
